@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import TransactionsTable from './TransactionsTable';
+import TransactionsStatistics from './TransactionsStatistics';
+import TransactionsBarChart from './TransactionsBarChart';
+import MonthDropdown from './MonthDropdown';
 import './App.css';
 
 function App() {
+  const [selectedMonth, setSelectedMonth] = useState('March');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [page, setPage] = useState(1);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Transactions Dashboard</h1>
+      <MonthDropdown selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} />
+      <TransactionsStatistics selectedMonth={selectedMonth} />
+      <TransactionsBarChart selectedMonth={selectedMonth} />
+      <TransactionsTable
+        selectedMonth={selectedMonth}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        page={page}
+        setPage={setPage}
+      />
     </div>
   );
 }
